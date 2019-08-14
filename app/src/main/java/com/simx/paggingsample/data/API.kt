@@ -32,8 +32,8 @@ interface API {
     @GET("search/movie")
     fun searchAsync(@Query("api_key")apiKey:String,
                       @Query("page")page:Int,
-                      @Query("year")year:Int,
-                      @Query("query")query:String
+                      @Query("year")year:Int?,
+                      @Query("query")query:String?
     ): Deferred<ResponseMovies>
 
     /*#########################*/

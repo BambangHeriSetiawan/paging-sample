@@ -8,6 +8,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".MainActivity">
+        <ProgressBar
+                android:id="@+id/progress"
+                android:layout_margin="5dp"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
         <com.google.android.material.textfield.TextInputLayout
                 android:layout_margin="5dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"

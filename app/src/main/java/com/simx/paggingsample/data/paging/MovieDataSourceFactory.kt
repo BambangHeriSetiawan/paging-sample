@@ -1,5 +1,6 @@
 package com.simx.paggingsample.data.paging
 
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.simx.paggingsample.data.discover.ResponseMovies
 
@@ -23,10 +24,13 @@ class MovieDataSourceFactory(): DataSource.Factory<Int, ResponseMovies.ResultsIt
      * @return the new DataSource.
      */
 
-    var q = ""
-    var y = 0
+    var q:String? = null
+    var y:Int? = null
+     var movieSource: MutableLiveData<MovieDataSource> = MutableLiveData()
     override fun create(): DataSource<Int, ResponseMovies.ResultsItem> {
-        return MovieDataSource(q,y)
+        var source  = MovieDataSource(q,y)
+        movieSource.postValue(source)
+        return source
     }
 
     fun search(quey:String, year: Int){

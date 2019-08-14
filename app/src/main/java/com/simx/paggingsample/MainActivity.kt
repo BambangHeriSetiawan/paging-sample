@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import android.widget.ViewAnimator
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.simx.paggingsample.data.discover.ResponseMovies
 import com.simx.paggingsample.data.paging.AdapterMovie
+import com.simx.paggingsample.data.paging.State
 import com.simx.paggingsample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -56,13 +60,22 @@ class MainActivity : AppCompatActivity() {
             search(queryData,yearSelected)
         }
 
+
+
         vm.movies.observe(this, Observer {
+
             adapterMovie.submitList(it)
 
         })
-
-
-
+        vm.state.observe(this, Observer {
+            when (it) {
+                State.DONE -> binding.progress.visibility = View.GONE
+                State.LOADING -> binding.progress.visibility = View.VISIBLE
+            }
+        })
+        vm.error.observe(this, Observer {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
         binding.rcv.apply {
             hasFixedSize()
             itemAnimator = DefaultItemAnimator()
